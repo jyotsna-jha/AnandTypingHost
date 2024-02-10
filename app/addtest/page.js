@@ -18,7 +18,6 @@ const Page = () => {
   };
 
   const handleQuestionsAdded = (questions) => {
-    console.log("Questions Added:", questions);
     setShowAddQuestions(false);
     setShowQuestionSets(true);
   };
