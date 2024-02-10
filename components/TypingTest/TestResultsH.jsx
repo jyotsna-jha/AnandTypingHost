@@ -57,9 +57,9 @@ const TestResults1 = ({
       </table>
       <div className="border-t border-[#757d85] mt-4"></div>
       <div className="mt-4">
-        <h1 className="text-xl font-bold text-[#222f3e] mb-2">
+       {/*  <h1 className="text-xl font-bold text-[#222f3e] mb-2">
           Correct Words:
-        </h1>
+        </h1> */}
         <div className="overflow-auto max-h-48 mb-4">
           <table className="w-full">
             {correctWords &&

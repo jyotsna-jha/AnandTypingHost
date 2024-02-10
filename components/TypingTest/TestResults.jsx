@@ -57,12 +57,12 @@ const TestResults = ({
       </table>
       <div className="border-t border-[#757d85] mt-4"></div>
       <div className="mt-4">
-        <h2 className="text-xl font-bold text-[#222f3e] mb-2">Sample Text:</h2>
-        <p className="text-[#222f3e]">{testText}</p>{" "}
+        {/* <h2 className="text-xl font-bold text-[#222f3e] mb-2">Sample Text:</h2> */}
+      {/*   <p className="text-[#222f3e]">{testText}</p>{" "} */}
         {/* Display the whole text */}
-        <h2 className="text-xl font-bold text-[#222f3e] mb-2">
+        {/* <h2 className="text-xl font-bold text-[#222f3e] mb-2">
           Correct Words:
-        </h2>
+        </h2> */}
         <div className="overflow-auto max-h-48 mb-4">
           <table className="w-full">
             {correctWords.map((word, index) => (
