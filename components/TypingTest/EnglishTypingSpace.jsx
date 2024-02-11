@@ -56,6 +56,25 @@ const EnglishTypingSpace = ({
     }
   }, [timeLeft]);
 
+
+
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    if (minutes > 0) {
+      if (remainingSeconds === 0) {
+        return `${minutes} min`;
+      } else {
+        return `${minutes} min ${remainingSeconds} sec`;
+      }
+    } else {
+      return `${remainingSeconds} sec`;
+    }
+  };
+
+
   const completeTest = () => {
     const userWords = userInput.trim().split(/\s+/);
     let correctWords = [];
@@ -104,7 +123,7 @@ const EnglishTypingSpace = ({
       </h1>
       <div className="flex items-center text-[#e74c3c] font-semibold text-lg mb-4">
         <FaHourglassStart className="mr-2 text-xl" />
-        Timer: {timeLeft} seconds
+        Timer:  {formatTime(timeLeft)}
       </div>
       {enableHighlight ? (
         <TextHighlighter sampleText={sampleText} userText={userInput} />
