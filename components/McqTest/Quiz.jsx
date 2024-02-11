@@ -7,11 +7,10 @@ import Result from "./Result"; // This is your provided Result component
 const Quiz = ({ selectedCategory, userName }) => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
-  const [startTime, setStartTime] = useState(Date.now());
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState(0);
   const [incorrect, setIncorrect] = useState([]);
+  const [allquestions, setAllquestions] = useState([]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -30,20 +29,7 @@ const Quiz = ({ selectedCategory, userName }) => {
     };
 
     fetchQuestions();
-
-    // Timer setup
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
   }, [selectedCategory]);
-
-  useEffect(() => {
-    if (timeLeft === 0 && !completed) {
-      handleSubmit();
-    }
-  }, [timeLeft]);
 
   const onAnswerSelected = (questionId, optionIndex) => {
     setAnswers({ ...answers, [questionId]: optionIndex });
@@ -57,6 +43,10 @@ const Quiz = ({ selectedCategory, userName }) => {
       const correctOptionIndex = question.options.findIndex(
         (opt) => opt.is_correct
       );
+      allquestions.push({
+        questionText: question.question_text,
+        correctAnswer: question.options[correctOptionIndex].option_text,
+      });
       if (answers[question.id] === correctOptionIndex) {
         calculatedScore += 1;
       } else {
@@ -78,7 +68,7 @@ const Quiz = ({ selectedCategory, userName }) => {
       <Result
         score={score}
         totalQuestions={questions.length}
-        incorrectAnswers={incorrect}
+        allquestions={allquestions}
       />
     );
   }
@@ -91,10 +81,6 @@ const Quiz = ({ selectedCategory, userName }) => {
       </div>
 
       <div className="bg-white shadow-md rounded p-6 mb-4">
-        <div className="mb-4 text-gray-600 font-semibold">
-          Time left: {Math.floor(timeLeft / 60)}:
-          {String(timeLeft % 60).padStart(2, "0")}
-        </div>
         {questions.map((question) => (
           <Question
             key={question.id}
