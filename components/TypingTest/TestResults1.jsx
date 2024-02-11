@@ -62,7 +62,7 @@ const TestResults1 = ({
        {/*  <h1 className="text-xl font-bold text-[#222f3e] mb-2 ">
           Correct Words:
         </h1> */}
-        <div className="overflow-auto max-h-48 mb-4">
+       {/*  <div className="overflow-auto max-h-48 mb-4">
           <table className="w-full">
             {correctWords.map((word, index) => (
               <tr key={index}>
@@ -70,7 +70,7 @@ const TestResults1 = ({
               </tr>
             ))}
           </table>
-        </div>
+        </div> */}
         <h2 className="text-xl font-bold text-[#222f3e] mb-2">
           Wrong Words with their respective correct words:
         </h2>
