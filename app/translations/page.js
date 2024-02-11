@@ -1,256 +1,153 @@
 "use client"
 import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVolumeUp, faExchangeAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const countries = {
-  "am-ET": "Amharic",
-  "ar-SA": "Arabic",
-  "be-BY": "Bielarus",
-  "bem-ZM": "Bemba",
-  "bi-VU": "Bislama",
-  "bjs-BB": "Bajan",
-  "bn-IN": "Bengali",
-  "bo-CN": "Tibetan",
-  "br-FR": "Breton",
-  "bs-BA": "Bosnian",
-  "ca-ES": "Catalan",
-  "cop-EG": "Coptic",
-  "cs-CZ": "Czech",
-  "cy-GB": "Welsh",
-  "da-DK": "Danish",
-  "dz-BT": "Dzongkha",
-  "de-DE": "German",
-  "dv-MV": "Maldivian",
-  "el-GR": "Greek",
-  "en-GB": "English",
-  "es-ES": "Spanish",
-  "et-EE": "Estonian",
-  "eu-ES": "Basque",
-  "fa-IR": "Persian",
-  "fi-FI": "Finnish",
-  "fn-FNG": "Fanagalo",
-  "fo-FO": "Faroese",
-  "fr-FR": "French",
-  "gl-ES": "Galician",
-  "gu-IN": "Gujarati",
-  "ha-NE": "Hausa",
-  "he-IL": "Hebrew",
-  "hi-IN": "Hindi",
-  "hr-HR": "Croatian",
-  "hu-HU": "Hungarian",
-  "id-ID": "Indonesian",
-  "is-IS": "Icelandic",
-  "it-IT": "Italian",
-  "ja-JP": "Japanese",
-  "kk-KZ": "Kazakh",
-  "km-KM": "Khmer",
-  "kn-IN": "Kannada",
-  "ko-KR": "Korean",
-  "ku-TR": "Kurdish",
-  "ky-KG": "Kyrgyz",
-  "la-VA": "Latin",
-  "lo-LA": "Lao",
-  "lv-LV": "Latvian",
-  "men-SL": "Mende",
-  "mg-MG": "Malagasy",
-  "mi-NZ": "Maori",
-  "ms-MY": "Malay",
-  "mt-MT": "Maltese",
-  "my-MM": "Burmese",
-  "ne-NP": "Nepali",
-  "niu-NU": "Niuean",
-  "nl-NL": "Dutch",
-  "no-NO": "Norwegian",
-  "ny-MW": "Nyanja",
-  "ur-PK": "Pakistani",
-  "pau-PW": "Palauan",
-  "pa-IN": "Panjabi",
-  "ps-PK": "Pashto",
-  "pis-SB": "Pijin",
-  "pl-PL": "Polish",
-  "pt-PT": "Portuguese",
-  "rn-BI": "Kirundi",
-  "ro-RO": "Romanian",
-  "ru-RU": "Russian",
-  "sg-CF": "Sango",
-  "si-LK": "Sinhala",
-  "sk-SK": "Slovak",
-  "sm-WS": "Samoan",
-  "sn-ZW": "Shona",
-  "so-SO": "Somali",
-  "sq-AL": "Albanian",
-  "sr-RS": "Serbian",
-  "sv-SE": "Swedish",
-  "sw-SZ": "Swahili",
-  "ta-LK": "Tamil",
-  "te-IN": "Telugu",
-  "tet-TL": "Tetum",
-  "tg-TJ": "Tajik",
-  "th-TH": "Thai",
-  "ti-TI": "Tigrinya",
-  "tk-TM": "Turkmen",
-  "tl-PH": "Tagalog",
-  "tn-BW": "Tswana",
-  "to-TO": "Tongan",
-  "tr-TR": "Turkish",
-  "uk-UA": "Ukrainian",
-  "uz-UZ": "Uzbek",
-  "vi-VN": "Vietnamese",
-  "wo-SN": "Wolof",
-  "xh-ZA": "Xhosa",
-  "yi-YD": "Yiddish",
-  "zu-ZA": "Zulu"
-}
+const TranslationPage = () => {
+  const [inputText, setInputText] = useState('');
+  const [outputText, setOutputText] = useState('');
+  const [inputLanguage, setInputLanguage] = useState('hi'); // Hindi
+  const [outputLanguage, setOutputLanguage] = useState('en'); // English
 
-const Translator = () => {
-  const [fromText, setFromText] = useState('');
-  const [toText, setToText] = useState('');
-  const [translateFrom, setTranslateFrom] = useState('en-GB');
-  const [translateTo, setTranslateTo] = useState('hi-IN');
-  const [isSpeaking, setIsSpeaking] = useState(false);
+  const languages = [
+    {
+      no: "27",
+      name: "Hindi",
+      native: "हिन्दी",
+      code: "hi",
+    },
+    {
+      no: "16",
+      name: "English",
+      native: "English",
+      code: "en",
+    },
+  ];
 
-  const handleExchange = () => {
-    setFromText(toText);
-    setToText(fromText);
-    setTranslateFrom(translateTo);
-    setTranslateTo(translateFrom);
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
   };
 
-  const handleKeyUp = () => {
-    if (!fromText) {
-      setToText('');
+  const handleTranslate = async () => {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
+      inputText
+    )}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setOutputText(data[0].map((item) => item[0]).join(''));
+    } catch (error) {
+      console.error('Translation error:', error);
     }
   };
 
-  const handleTranslate = () => {
-    if (!fromText) return;
-    setToText('Translating...');
-
-    const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(fromText)}&langpair=${translateFrom}|${translateTo}`;
-
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.responseData && data.responseData.translatedText) {
-          setToText(data.responseData.translatedText);
-        } else {
-          setToText('Translation not available');
-        }
-      })
-      .catch((error) => {
-        console.error('Translation error:', error);
-        setToText('Translation error');
-      });
+  const handleInputReset = () => {
+    setInputText('');
   };
 
-  const handleCopyOrSpeak = (target, source) => {
-    if (!fromText || !toText) return;
-
-    if (target === 'copy') {
-      navigator.clipboard.writeText(source);
-    } else {
-      if (isSpeaking) {
-        // Stop speaking
-        speechSynthesis.cancel();
-      } else {
-        // Start speaking
-        const utterance = new SpeechSynthesisUtterance(source);
-        utterance.lang = target === 'from' ? translateFrom : translateTo;
-        speechSynthesis.speak(utterance);
-      }
-
-      // Toggle the speaking state
-      setIsSpeaking(!isSpeaking);
-    }
-  };
-
-  const handleReset = () => {
-    setFromText('');
-    setToText('');
+  const handleOutputReset = () => {
+    setOutputText('');
   };
 
   return (
-    <div className="container mx-auto p-4 mt-8 max-w-2xl">
-      <h1 className="text-4xl text-red-500 mb-4 font-bold text-center">Language Translator</h1>
-      <p className="text-gray-600 md:text-lg mb-8 text-center font-semibold">Translate text between different languages with style...</p>
-      <div className="flex flex-col items-center space-y-6 lg:space-y-8">
-        <div className="text-input relative w-full">
-          <button
-            className="absolute bottom-4 left-4 p-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-red active:bg-red-800 text-sm"
-            onClick={handleReset}
-          >
-            Reset
-          </button>
+    <div className="container mx-auto py-8 px-4">
+      <h1 className="text-3xl mb-6 font-bold text-center font-poppins text-[#e74c3c]">Language Translator</h1>
+
+      <div className="max-w-xl mx-auto bg-white shadow-md rounded-md p-6">
+        {/* Input */}
+        <div className="mb-4">
+          <label htmlFor="inputText" className="block mb-2 font-poppins">
+            Input Text:
+          </label>
           <textarea
-            spellCheck="false"
-            className="from-text p-4 border border-gray-300 rounded-lg w-full h-64 focus:outline-none focus:border-red-300 focus:border-4 transition"
-            placeholder="Enter text"
-            value={fromText}
-            onChange={(e) => setFromText(e.target.value)}
-            onKeyUp={handleKeyUp}
+            id="inputText"
+            className="w-full p-2 border border-gray-300 rounded font-poppins"
+            rows="6"
+            value={inputText}
+            onChange={handleInputChange}
+            placeholder="Enter text to translate..."
           ></textarea>
           <button
-            className="absolute bottom-4 right-4 p-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-red active:bg-red-800 text-sm"
+            className="mt-2 px-3 py-1 bg-[#e74c3c] hover:bg-gray-300 rounded text-white"
+            onClick={handleInputReset}
+          >
+            Reset Input
+          </button>
+        </div>
+
+        {/* Language Selection */}
+        <div className="flex mb-4">
+          {/* Input Language */}
+          <div className="mr-4 flex-1">
+            <label htmlFor="inputLanguage" className="block mb-2 font-poppins">
+              Input Language:
+            </label>
+            <select
+              id="inputLanguage"
+              className="w-full p-2 border border-gray-300 rounded font-poppins"
+              value={inputLanguage}
+              onChange={(e) => setInputLanguage(e.target.value)}
+            >
+              {languages.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.name} ({lang.native})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Output Language */}
+          <div className="flex-1">
+            <label htmlFor="outputLanguage" className="block mb-2 font-poppins">
+              Output Language:
+            </label>
+            <select
+              id="outputLanguage"
+              className="w-full p-2 border border-gray-300 rounded font-poppins"
+              value={outputLanguage}
+              onChange={(e) => setOutputLanguage(e.target.value)}
+            >
+              {languages.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.name} ({lang.native})
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Translate Button */}
+        <div className="mb-4">
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded w-full font-poppins"
             onClick={handleTranslate}
           >
             Translate
           </button>
         </div>
-        <div className="flex items-center space-y-4 lg:space-y-0 lg:space-x-8">
-          <div className="row flex items-center space-x-4">
-            <div className="icons cursor-pointer" onClick={() => handleCopyOrSpeak('from', fromText)}>
-              {/* Removed faCopy icon */}
-            </div>
-            <div className="icons cursor-pointer" onClick={() => handleCopyOrSpeak('from', fromText)}>
-              <FontAwesomeIcon icon={faVolumeUp} className={`text-gray-600 text-lg lg:text-xl ${isSpeaking ? 'text-red-500' : ''}`} />
-            </div>
-            <select
-              value={translateFrom}
-              onChange={(e) => setTranslateFrom(e.target.value)}
-              className="border border-gray-300 rounded p-2 text-gray-600"
-            >
-              {Object.entries(countries).map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="exchange cursor-pointer" onClick={handleExchange}>
-            <FontAwesomeIcon icon={faExchangeAlt} className="text-gray-600 text-2xl lg:text-3xl" />
-          </div>
-          <div className="row flex items-center space-x-4">
-            <select
-              value={translateTo}
-              onChange={(e) => setTranslateTo(e.target.value)}
-              className="border border-gray-300 rounded p-2 text-gray-600"
-            >
-              {Object.entries(countries).map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <div className="icons cursor-pointer" onClick={() => handleCopyOrSpeak('to', toText)}>
-              <FontAwesomeIcon icon={faVolumeUp} className={`text-gray-600 text-lg lg:text-xl ${isSpeaking ? 'text-red-500' : ''}`} />
-            </div>
-            <div className="icons cursor-pointer" onClick={() => handleCopyOrSpeak('to', toText)}>
-              {/* Removed faCopy icon */}
-            </div>
-          </div>
+
+        {/* Output */}
+        <div>
+          <label htmlFor="outputText" className="block mb-2 font-poppins">
+            Output Text:
+          </label>
+          <textarea
+            id="outputText"
+            className="w-full p-2 border border-gray-300 rounded font-poppins"
+            rows="6"
+            value={outputText}
+            readOnly
+            placeholder="Translated text will appear here..."
+          ></textarea>
+          <button
+            className="mt-2 px-3 py-1 bg-[#e74c3c] hover:bg-gray-300 rounded text-white"
+            onClick={handleOutputReset}
+          >
+            Reset Output
+          </button>
         </div>
-        <textarea
-          spellCheck="false"
-          readOnly
-          disabled
-          className="to-text p-4 border border-gray-300 rounded-lg w-full h-64 mt-4"
-          placeholder="Translation"
-          value={toText}
-        ></textarea>
       </div>
     </div>
   );
 };
 
-export default Translator;
+export default TranslationPage;
