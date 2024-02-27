@@ -139,7 +139,7 @@ const EnglishTypingSpace = ({
         value={userInput}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        style={{ fontSize: "25px" }}
+        style={{ fontSize: "20px" }}
       />
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
