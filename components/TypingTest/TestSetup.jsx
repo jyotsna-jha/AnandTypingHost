@@ -78,6 +78,8 @@ const TestSetupForm = ({ onStartTest, difficulties }) => {
                   {diff.charAt(0).toUpperCase() + diff.slice(1)}
                 </option>
               ))}
+                                
+
             </select>
           </div>
           <div className="mb-4">
