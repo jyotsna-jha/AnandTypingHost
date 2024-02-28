@@ -7,32 +7,28 @@ function TextHighlighter({ sampleText, userText }) {
 
   useEffect(() => {
     const container = containerRef.current;
-    const lineHeight = 20; // Adjust the multiplier based on your font size and desired speed
-    const wordsPerLine = 12; // Adjust based on your layout
+    const lineHeight = 38; // Adjust the multiplier based on your font size and desired speed
+    const wordsPerLine =22 ; // Adjust based on your layout
 
     // Calculate the line number and word index within that line
     const lineIndex = Math.floor(currentWordIndex / wordsPerLine);
     const wordIndexInLine = currentWordIndex % wordsPerLine;
 
-    // Set the scroll position to move to the current line
-    container.scrollTop = lineIndex * lineHeight;
+    // Calculate the target scroll position
+    const targetScrollPosition = lineIndex * lineHeight;
 
-    // Check if the current word index is within the visible range
-    const isCurrentWordVisible =
-      lineIndex * wordsPerLine <= currentWordIndex &&
-      currentWordIndex < (lineIndex + 1) * wordsPerLine;
-
-    // If the current word is not visible, scroll to make it visible
-    if (!isCurrentWordVisible) {
-      container.scrollTop = (lineIndex + 1) * lineHeight;
-    }
+    // Scroll smoothly to the target position
+    container.scrollTo({
+      top: targetScrollPosition,
+      behavior: "smooth",
+    });
   }, [sampleText, userText]);
 
   return (
     <div
       ref={containerRef}
       className="bg-white border border-gray-300 rounded p-4 mb-4 h-60 overflow-y-auto"
-      style={{fontSize: '20px' }} 
+      style={{ fontSize: "20px", scrollBehavior: "smooth" }}
     >
       {sampleWords.map((word, idx) => {
         let isCurrentWord = idx === currentWordIndex;

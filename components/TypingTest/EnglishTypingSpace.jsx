@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import TextHighlighter from "./TextHighlighter";
 import { FaHourglassStart } from "react-icons/fa";
@@ -133,7 +134,7 @@ const EnglishTypingSpace = ({
         </div>
       )}
       <textarea
-        className="w-full p-4 border-2 border-gray-300 rounded focus:outline-none focus:border-red-300 focus:border-4 transition"
+        className="w-full h-60 p-4 border-2 border-gray-300 rounded focus:outline-none focus:border-red-300 focus:border-4 transition"
         rows="10"
         placeholder="Time will start once you start typing"
         value={userInput}
