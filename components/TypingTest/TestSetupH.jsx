@@ -69,15 +69,18 @@ const TestSetupForm1 = ({ onStartTest, difficulties }) => {
               onChange={(e) => setDifficulty(e.target.value)}
               className="w-full border border-gray-300 rounded p-2 text-sm sm:text-base text-[#8395a7]"
               required
+             
             >
-              <option value="" disabled>
+              <option value="" disabled >
                 Select Category
               </option>
               {difficulties.map((diff) => (
                 <option key={diff} value={diff}>
                   {diff.charAt(0).toUpperCase() + diff.slice(1)}
+                  
                 </option>
               ))}
+              
             </select>
           </div>
           <div className="mb-4">
