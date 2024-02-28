@@ -1115,7 +1115,7 @@ const HindiTypingSpace = ({
       <div>
         <textarea
           ref={textAreaRef}
-          className="w-full p-4 border-2 border-gray-300 rounded focus:outline-none focus:border-red-300 focus:border-4 transition"
+          className="w-full h-60 p-4 border-2 border-gray-300 rounded focus:outline-none focus:border-red-300 focus:border-4 transition"
           rows="10"
           placeholder="समय शुरू होगा जब आप टाइपिंग करना शुरू करेंगे।"
           value={userInput}
