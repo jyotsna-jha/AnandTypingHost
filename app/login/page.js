@@ -24,6 +24,7 @@ const LoginPage = () => {
         setErrorMessage(errorData.message);
       }
     } catch (error) {
+      console.log(error);
       setErrorMessage("Failed to connect to the server");
     }
   };
