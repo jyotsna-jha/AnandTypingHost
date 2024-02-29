@@ -7,8 +7,8 @@ function TextHighlighter({ sampleText, userText }) {
 
   useEffect(() => {
     const container = containerRef.current;
-    const lineHeight = 50; // Adjust the multiplier based on your font size and desired speed
-    const wordsPerLine = 20; // Adjust based on your layout
+    const lineHeight = 100; // Adjust the multiplier based on your font size and desired speed
+    const wordsPerLine = 35; // Adjust based on your layout
 
     // Calculate the line number and word index within that line
     const lineIndex = Math.floor(currentWordIndex / wordsPerLine);
@@ -32,7 +32,7 @@ function TextHighlighter({ sampleText, userText }) {
     <div
       ref={containerRef}
       className="bg-white border border-gray-300 rounded p-4 mb-4 h-60 overflow-y-auto"
-      style={{ fontFamily: "hindi", fontSize: "30px" }}    >
+      style={{ fontFamily: "hindi", fontSize: "32px" }}    >
       {sampleWords.map((word, idx) => {
         let isCurrentWord = idx === currentWordIndex;
 
