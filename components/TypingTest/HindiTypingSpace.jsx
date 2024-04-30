@@ -363,7 +363,7 @@ const HindiTypingSpace = ({
             } else if (char === "W" && newInput[newInput.length - 1] === "आ") {
               newInput = newInput.slice(0, -1) + "ऑ";
             } else if (char === "s" && newInput[newInput.length - 1] === "आ") {
-              newInput = newInput.slice(0, -1) + "ओ ";
+              newInput = newInput.slice(0, -1) + "ओ";
             } else if (char === "S" && newInput[newInput.length - 1] === "आ") {
               newInput = newInput.slice(0, -1) + "औ";
             } else if (char === "s" && newInput[newInput.length - 1] === "ए") {
