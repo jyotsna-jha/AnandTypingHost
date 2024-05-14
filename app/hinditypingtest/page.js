@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect, useCallback } from "react";
 import TestSetupForm from "@/components/TypingTest/TestSetupH";
 import HindiTypingSpace from "@/components/TypingTest/HindiTYpingSpace2"; // Update import
@@ -14,10 +14,12 @@ export default function TypingTest() {
   const [duration, setDuration] = useState(60);
   const [userName, setUserName] = useState("");
   const [enableHighlight, setEnableHighlight] = useState(true);
+  const [blockBackspace, setBlockBackspace] = useState(false); // Added blockBackspace state
 
   useEffect(() => {
     fetchTexts();
   }, []);
+
   const transformTexts = useCallback((fetchedTexts) => {
     const transformed = fetchedTexts.reduce((acc, item) => {
       if (!acc[item.difficulty]) {
@@ -45,25 +47,8 @@ export default function TypingTest() {
     }
   };
 
-  // const handleStartTest = (duration, difficulty, userName, enableHighlight) => {
-  //   // Assuming you have a file for Hindi texts
-  //   const selectedTexts = texts[difficulty];
-  //   if (Array.isArray(selectedTexts)) {
-  //     const randomIndex = Math.floor(Math.random() * selectedTexts.length);
-  //     setTestText(selectedTexts[randomIndex]);
-  //     setDuration(duration);
-  //     setUserName(userName);
-  //     setEnableHighlight(enableHighlight);
-  //     setStartTest(true);
-  //   } else {
-  //     console.error(
-  //       "Selected texts are not available for difficulty:",
-  //       difficulty
-  //     );
-  //   }
-  // };
   const handleStartTest = useCallback(
-    (selectedDuration, selectedDifficulty, selectedUserName, highlight) => {
+    (selectedDuration, selectedDifficulty, selectedUserName, highlight, blockBackspace) => {
       const randomText =
         texts[selectedDifficulty][
           Math.floor(Math.random() * texts[selectedDifficulty].length)
@@ -72,6 +57,7 @@ export default function TypingTest() {
       setDuration(selectedDuration);
       setUserName(selectedUserName);
       setEnableHighlight(highlight);
+      setBlockBackspace(blockBackspace);
       setStartTest(true);
     },
     [texts]
@@ -117,6 +103,7 @@ export default function TypingTest() {
         userName={userName}
         onTestComplete={handleTestComplete}
         enableHighlight={enableHighlight}
+        blockBackspace={blockBackspace} 
       />
     );
   }

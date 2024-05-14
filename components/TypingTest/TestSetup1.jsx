@@ -7,9 +7,11 @@ const TestSetupForm1 = ({ onStartTest, difficulties }) => {
   const [duration, setDuration] = useState(60); // Default duration to 60 seconds
   const [difficulty, setDifficulty] = useState("");
   const [enableHighlight, setEnableHighlight] = useState(true);
+  const [blockBackspace, setBlockBackspace] = useState(false); // Added blockBackspace state
+
   const handleStartTest = (e) => {
     e.preventDefault();
-    onStartTest(duration, difficulty, userName, enableHighlight); // Use the callback to pass the values to the parent component
+    onStartTest(duration, difficulty, userName, enableHighlight,blockBackspace); // Use the callback to pass the values to the parent component
   };
 
   return (
@@ -96,6 +98,22 @@ const TestSetupForm1 = ({ onStartTest, difficulties }) => {
               Enable Highlight
             </label>
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="blockBackspace"
+              className="font-medium text-[#222f3e] flex items-center"
+            >
+              <input
+                type="checkbox"
+                id="blockBackspace"
+                checked={blockBackspace}
+                onChange={(e) => setBlockBackspace(e.target.checked)}
+                className="mr-2"
+              />
+              Block Backspace
+            </label>
+          </div>
+         
           <button
             type="submit"
             className="bg-red-400 text-white rounded p-4 cursor-pointer w-full hover:scale-105 transform transition-transform duration-200"

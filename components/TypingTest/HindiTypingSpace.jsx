@@ -10,6 +10,8 @@ const HindiTypingSpace = ({
   onTestComplete,
   userName,
   enableHighlight,
+  blockBackspace,
+  
 }) => {
   const [userInput, setUserInput] = useState("");
   const [highlightedWordIndex, setHighlightedWordIndex] = useState(0);
@@ -158,6 +160,11 @@ const HindiTypingSpace = ({
   };
 
   const handleKeyDown = (e) => {
+
+    
+    if (blockBackspace && e.key === "Backspace") {
+      e.preventDefault(); // Blocking Backspace if blockBackspace is checked
+    }
     if (e.key === "Backspace") {
       setBackspaceCount((prevCount) => prevCount + 1);
     }

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import TextHighlighter from "./TextHighlighter";
 import { FaHourglassStart } from "react-icons/fa";
@@ -9,6 +8,7 @@ const EnglishTypingSpace = ({
   onTestComplete,
   userName,
   enableHighlight,
+  blockBackspace, // Added blockBackspace prop
 }) => {
   const [userInput, setUserInput] = useState("");
   const [highlightedWordIndex, setHighlightedWordIndex] = useState(0);
@@ -18,6 +18,10 @@ const EnglishTypingSpace = ({
   const words = sampleText.split(" ");
 
   const handleKeyDown = (e) => {
+    if (blockBackspace && e.key === "Backspace") {
+      e.preventDefault(); // Blocking Backspace if blockBackspace is checked
+    }
+    
     if (e.key === "Backspace") {
       setBackspaceCount((prevCount) => prevCount + 1);
     }
@@ -57,9 +61,6 @@ const EnglishTypingSpace = ({
     }
   }, [timeLeft]);
 
-
-
-
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -74,7 +75,6 @@ const EnglishTypingSpace = ({
       return `${remainingSeconds} sec`;
     }
   };
-
 
   const completeTest = () => {
     const userWords = userInput.trim().split(/\s+/);

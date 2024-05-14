@@ -14,6 +14,7 @@ export default function TypingTest() {
   const [duration, setDuration] = useState(60);
   const [userName, setUserName] = useState("");
   const [enableHighlight, setEnableHighlight] = useState(true);
+  const [blockBackspace, setBlockBackspace] = useState(false); // Added blockBackspace state
 
   useEffect(() => {
     fetchTexts();
@@ -47,7 +48,7 @@ export default function TypingTest() {
   };
 
   const handleStartTest = useCallback(
-    (selectedDuration, selectedDifficulty, selectedUserName, highlight) => {
+    (selectedDuration, selectedDifficulty, selectedUserName, highlight, blockBackspace) => { // Updated handleStartTest to accept blockBackspace
       const randomText =
         texts[selectedDifficulty][
           Math.floor(Math.random() * texts[selectedDifficulty].length)
@@ -56,6 +57,7 @@ export default function TypingTest() {
       setDuration(selectedDuration);
       setUserName(selectedUserName);
       setEnableHighlight(highlight);
+      setBlockBackspace(blockBackspace); // Set blockBackspace state
       setStartTest(true);
     },
     [texts]
@@ -100,6 +102,7 @@ export default function TypingTest() {
         userName={userName}
         onTestComplete={handleTestComplete}
         enableHighlight={enableHighlight}
+        blockBackspace={blockBackspace} // Passed blockBackspace to EnglishTypingSpace
       />
     );
   }
