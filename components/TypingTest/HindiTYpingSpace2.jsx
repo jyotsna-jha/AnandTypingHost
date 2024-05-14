@@ -27,12 +27,11 @@ const HindiTypingSpace = ({
   };
 
   const handleKeyDown = (e) => {
-    // Check if blockBackspace is enabled
     if (blockBackspace && e.key === "Backspace") {
       e.preventDefault(); // Blocking Backspace if blockBackspace is checked
     }
     
-    if (e.key === "Backspace") {
+    if (e.key === "Backspace" && !blockBackspace) {
       setBackspaceCount((prevCount) => prevCount + 1);
     }
   };

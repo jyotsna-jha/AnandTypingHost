@@ -22,7 +22,7 @@ const EnglishTypingSpace = ({
       e.preventDefault(); // Blocking Backspace if blockBackspace is checked
     }
     
-    if (e.key === "Backspace") {
+    if (e.key === "Backspace" && !blockBackspace) {
       setBackspaceCount((prevCount) => prevCount + 1);
     }
   };
@@ -133,6 +133,11 @@ const EnglishTypingSpace = ({
           {sampleText}
         </div>
       )}
+     {/*  {!blockBackspace && (
+        <div className="text-right mb-2">
+          Backspace Count: {backspaceCount}
+        </div>
+      )} */}
       <textarea
         className="w-full h-60 p-4 border-2 border-gray-300 rounded focus:outline-none focus:border-red-300 focus:border-4 transition"
         rows="10"

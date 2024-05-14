@@ -162,12 +162,15 @@ const HindiTypingSpace = ({
   const handleKeyDown = (e) => {
 
     
-    if (blockBackspace && e.key === "Backspace") {
-      e.preventDefault(); // Blocking Backspace if blockBackspace is checked
-    }
-    if (e.key === "Backspace") {
-      setBackspaceCount((prevCount) => prevCount + 1);
-    }
+  
+      if (blockBackspace && e.key === "Backspace") {
+        e.preventDefault(); // Blocking Backspace if blockBackspace is checked
+      }
+      
+      if (e.key === "Backspace" && !blockBackspace) {
+        setBackspaceCount((prevCount) => prevCount + 1);
+      }
+    
 
     lastKeyPressed.current = e.key;
 

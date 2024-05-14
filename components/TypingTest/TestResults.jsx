@@ -12,6 +12,7 @@ const TestResults = ({
   wrongWordsCount,
   backspaceCount,
   testText,
+  blockBackspace, // Added blockBackspace prop
 }) => {
   return (
     <div className="p-4 md:w-1/2 mx-auto my-12 w-11/12 shadow-md rounded-sm">
@@ -23,10 +24,7 @@ const TestResults = ({
         <tbody>
           <tr>
             <td className="text-[#222f3e] p-2">Total Words Typed:</td>
-            <td className="text-[#222f3e] p-2">{totalWords}
-            
-            
-            </td>
+            <td className="text-[#222f3e] p-2">{totalWords}</td>
           </tr>
           <tr>
             <td className="text-[#222f3e] p-2">Correct Words:</td>
@@ -36,10 +34,14 @@ const TestResults = ({
             <td className="text-[#222f3e] p-2">Wrong Words:</td>
             <td className="text-[#222f3e] p-2">{wrongWordsCount}</td>
           </tr>
-          <tr>
-            <td className="text-[#222f3e] p-2">Number of backspace pressed</td>
-            <td className="text-[#222f3e] p-2">{backspaceCount}</td>
-          </tr>
+          {!blockBackspace && (
+            <tr>
+              <td className="text-[#222f3e] p-2">
+                Number of backspace pressed
+              </td>
+              <td className="text-[#222f3e] p-2">{backspaceCount}</td>
+            </tr>
+          )}
           <tr>
             <td className="text-[#222f3e] p-2">Accuracy:</td>
             <td className="text-[#222f3e] p-2">{accuracy}%</td>
@@ -48,7 +50,6 @@ const TestResults = ({
             <td className="text-[#222f3e] p-2">Gross Speed:</td>
             <td className="text-[#222f3e] p-2">{grossSpeed} WPM</td>
           </tr>
-
           <tr>
             <td className="text-[#222f3e] p-2">Net Speed:</td>
             <td className="text-[#222f3e] p-2">{netSpeed} WPM</td>
@@ -57,21 +58,6 @@ const TestResults = ({
       </table>
       <div className="border-t border-[#757d85] mt-4"></div>
       <div className="mt-4">
-        {/* <h2 className="text-xl font-bold text-[#222f3e] mb-2">Sample Text:</h2> */}
-      {/*   <p className="text-[#222f3e]">{testText}</p>{" "} */}
-        {/* Display the whole text */}
-        {/* <h2 className="text-xl font-bold text-[#222f3e] mb-2">
-          Correct Words:
-        </h2> */}
-        {/* <div className="overflow-auto max-h-48 mb-4">
-          <table className="w-full">
-            {correctWords.map((word, index) => (
-              <tr key={index}>
-                <td className="border px-4 py-2">{word}</td>
-              </tr>
-            ))}
-          </table>
-        </div> */}
         <h2 className="text-xl font-bold text-[#222f3e] mb-2">
           Wrong Words with their respective correct words:
         </h2>
