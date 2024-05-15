@@ -7,9 +7,11 @@ const TestSetupForm = ({ onStartTest, difficulties }) => {
   const [duration, setDuration] = useState(60);
   const [difficulty, setDifficulty] = useState("");
   const [enableHighlight, setEnableHighlight] = useState(true);
+  const [blockBackspace, setBlockBackspace] = useState(false); // Added blockBackspace state
+
   const handleStartTest = (e) => {
     e.preventDefault();
-    onStartTest(duration, difficulty, userName, enableHighlight);
+    onStartTest(duration, difficulty, userName, enableHighlight, blockBackspace); // Passed blockBackspace to onStartTest
   };
 
   return (
@@ -35,7 +37,6 @@ const TestSetupForm = ({ onStartTest, difficulties }) => {
               required
             />
           </div>
-
           <div className="mb-4">
             <label
               htmlFor="duration"
@@ -78,8 +79,6 @@ const TestSetupForm = ({ onStartTest, difficulties }) => {
                   {diff.charAt(0).toUpperCase() + diff.slice(1)}
                 </option>
               ))}
-                                
-
             </select>
           </div>
           <div className="mb-4">
@@ -97,6 +96,22 @@ const TestSetupForm = ({ onStartTest, difficulties }) => {
               Enable Highlight
             </label>
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="blockBackspace"
+              className="font-medium text-[#222f3e] flex items-center"
+            >
+              <input
+                type="checkbox"
+                id="blockBackspace"
+                checked={blockBackspace}
+                onChange={(e) => setBlockBackspace(e.target.checked)}
+                className="mr-2"
+              />
+              Block Backspace
+            </label>
+          </div>
+  
           <button
             type="submit"
             className="bg-red-400 text-white rounded p-4 cursor-pointer w-full hover:scale-105 transform transition-transform duration-200"

@@ -14,6 +14,7 @@ export default function TypingTest() {
   const [duration, setDuration] = useState(60);
   const [userName, setUserName] = useState("");
   const [enableHighlight, setEnableHighlight] = useState(true);
+  const [blockBackspace, setBlockBackspace] = useState(false); 
   useEffect(() => {
     fetchTexts();
   }, []);
@@ -45,7 +46,7 @@ export default function TypingTest() {
     }
   };
   const handleStartTest = useCallback(
-    (selectedDuration, selectedDifficulty, selectedUserName, highlight) => {
+    (selectedDuration, selectedDifficulty, selectedUserName, highlight,blockBackspace) => {
       const randomText =
         texts[selectedDifficulty][
           Math.floor(Math.random() * texts[selectedDifficulty].length)
@@ -54,6 +55,7 @@ export default function TypingTest() {
       setDuration(selectedDuration);
       setUserName(selectedUserName);
       setEnableHighlight(highlight);
+      setBlockBackspace(blockBackspace);
       setStartTest(true);
     },
     [texts]
@@ -99,6 +101,7 @@ export default function TypingTest() {
         userName={userName}
         onTestComplete={handleTestComplete}
         enableHighlight={enableHighlight}
+        blockBackspace={blockBackspace} 
       />
     );
   }

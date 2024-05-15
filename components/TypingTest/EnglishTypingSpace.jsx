@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import TextHighlighter from "./TextHighlighter";
 import { FaHourglassStart } from "react-icons/fa";
@@ -9,6 +8,7 @@ const EnglishTypingSpace = ({
   onTestComplete,
   userName,
   enableHighlight,
+  blockBackspace, // Added blockBackspace prop
 }) => {
   const [userInput, setUserInput] = useState("");
   const [highlightedWordIndex, setHighlightedWordIndex] = useState(0);
@@ -18,7 +18,11 @@ const EnglishTypingSpace = ({
   const words = sampleText.split(" ");
 
   const handleKeyDown = (e) => {
-    if (e.key === "Backspace") {
+    if (blockBackspace && e.key === "Backspace") {
+      e.preventDefault(); // Blocking Backspace if blockBackspace is checked
+    }
+    
+    if (e.key === "Backspace" && !blockBackspace) {
       setBackspaceCount((prevCount) => prevCount + 1);
     }
   };
@@ -57,9 +61,6 @@ const EnglishTypingSpace = ({
     }
   }, [timeLeft]);
 
-
-
-
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -74,7 +75,6 @@ const EnglishTypingSpace = ({
       return `${remainingSeconds} sec`;
     }
   };
-
 
   const completeTest = () => {
     const userWords = userInput.trim().split(/\s+/);
@@ -133,6 +133,11 @@ const EnglishTypingSpace = ({
           {sampleText}
         </div>
       )}
+     {/*  {!blockBackspace && (
+        <div className="text-right mb-2">
+          Backspace Count: {backspaceCount}
+        </div>
+      )} */}
       <textarea
         className="w-full h-60 p-4 border-2 border-gray-300 rounded focus:outline-none focus:border-red-300 focus:border-4 transition"
         rows="10"

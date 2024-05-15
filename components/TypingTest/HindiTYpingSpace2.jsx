@@ -8,6 +8,7 @@ const HindiTypingSpace = ({
   onTestComplete,
   userName,
   enableHighlight,
+  blockBackspace, // Added blockBackspace prop
 }) => {
   const [userInput, setUserInput] = useState("");
   const [highlightedWordIndex, setHighlightedWordIndex] = useState(0);
@@ -26,7 +27,11 @@ const HindiTypingSpace = ({
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Backspace") {
+    if (blockBackspace && e.key === "Backspace") {
+      e.preventDefault(); // Blocking Backspace if blockBackspace is checked
+    }
+    
+    if (e.key === "Backspace" && !blockBackspace) {
       setBackspaceCount((prevCount) => prevCount + 1);
     }
   };
@@ -46,15 +51,13 @@ const HindiTypingSpace = ({
     let timerInterval;
 
     if (hasStarted && timeLeft > 0) {
-      // Adding console logs for troubleshooting
-      console.log("Timer started");
       timerInterval = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000);
     }
 
     return () => clearInterval(timerInterval);
-  }, [hasStarted, timeLeft]); // Make sure dependencies are correct
+  }, [hasStarted, timeLeft]);
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -150,6 +153,7 @@ const HindiTypingSpace = ({
       backspaceCount
     );
   };
+
   return (
     <div className="w-full max-w-screen-lg mx-auto p-4 relative">
       <div className="text-center py-4">
