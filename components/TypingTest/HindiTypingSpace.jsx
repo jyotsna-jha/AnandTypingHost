@@ -1131,7 +1131,7 @@ const HindiTypingSpace = ({
           value={userInput}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          style={{ fontSize: "22px" }}
+          style={{ fontSize: "22px" ,lineHeight:"1.8" }}
         />
       </div>
       <button
