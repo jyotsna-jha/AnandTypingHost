@@ -32,7 +32,7 @@ function TextHighlighter({ sampleText, userText }) {
     <div
       ref={containerRef}
       className="bg-white border border-gray-300 rounded p-4 mb-4 h-60 overflow-y-auto"
-      style={{fontSize: '22px', lineHeight:"1.8" }} 
+      style={{fontSize: '22px', lineHeight:"1.6" }} 
     >
       {sampleWords.map((word, idx) => {
         let isCurrentWord = idx === currentWordIndex;
