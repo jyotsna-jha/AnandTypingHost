@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import Question from "./Question"; // Ensure this component is correctly implemented
 import Result from "./Result"; // This is your provided Result component
@@ -9,9 +8,8 @@ const Quiz = ({ selectedCategory, userName }) => {
   const [answers, setAnswers] = useState({});
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState(0);
-  const [incorrect, setIncorrect] = useState([]);
   const [allquestions, setAllquestions] = useState([]);
-
+  
   useEffect(() => {
     const fetchQuestions = async () => {
       if (selectedCategory) {
@@ -37,29 +35,29 @@ const Quiz = ({ selectedCategory, userName }) => {
 
   const handleSubmit = () => {
     let calculatedScore = 0;
-    let incorrectAnswers = [];
+    let reviewQuestions = [];
 
     questions.forEach((question) => {
       const correctOptionIndex = question.options.findIndex(
         (opt) => opt.is_correct
       );
-      allquestions.push({
+      const userAnswerIndex = answers[question.id];
+      const userAnswerText = question.options[userAnswerIndex]?.option_text;
+      const correctAnswerText = question.options[correctOptionIndex]?.option_text;
+
+      reviewQuestions.push({
         questionText: question.question_text,
-        correctAnswer: question.options[correctOptionIndex].option_text,
+        userAnswer: userAnswerText,
+        correctAnswer: correctAnswerText,
       });
-      if (answers[question.id] === correctOptionIndex) {
+
+      if (userAnswerIndex === correctOptionIndex) {
         calculatedScore += 1;
-      } else {
-        incorrectAnswers.push({
-          questionText: question.question_text, // Corrected property name
-          userAnswer: question.options[answers[question.id]].option_text,
-          correctAnswer: question.options[correctOptionIndex].option_text,
-        });
       }
     });
 
     setScore(calculatedScore);
-    setIncorrect(incorrectAnswers);
+    setAllquestions(reviewQuestions);
     setCompleted(true);
   };
 
