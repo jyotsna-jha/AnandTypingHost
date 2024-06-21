@@ -12,6 +12,9 @@ const Result = ({ score, totalQuestions, allquestions }) => {
         {allquestions.map((item, index) => (
           <div key={index} className="mb-4">
             <p className="font-semibold">{item.questionText}</p>
+            <p className={`text-lg ${item.userAnswer === item.correctAnswer ? 'text-green-500' : 'text-red-500'}`}>
+              Your Answer: {item.userAnswer}
+            </p>
             <p className="text-green-500">
               Correct Answer: {item.correctAnswer}
             </p>
@@ -21,4 +24,5 @@ const Result = ({ score, totalQuestions, allquestions }) => {
     </div>
   );
 };
+
 export default Result;

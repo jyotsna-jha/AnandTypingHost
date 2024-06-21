@@ -83,7 +83,7 @@ function Navbar() {
             Translator
           </a>
           <a href="/mcqtest" className="hover:text-[#e74c3c] py-4">
-            Test
+            Mock Test
           </a>
           <a href="/downloads" className="hover:text-[#e74c3c] py-4">
             Downloads
@@ -172,7 +172,7 @@ function Navbar() {
             Translator
           </a>
           <a href="/mcqtest" className="block py-2 px-4">
-            Test
+            Mock Test
           </a>
           <a href="/downloads" className="block py-2 px-4">
             Downloads
