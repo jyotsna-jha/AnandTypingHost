@@ -13,7 +13,11 @@ const TestPage = () => {
   useEffect(() => {
     fetch("https://api.anandtyping.com/api/categories")
       .then((response) => response.json())
-      .then((data) => setCategories(data))
+      .then((data) => {
+        // Sort categories alphabetically by name
+        const sortedCategories = data.sort((a, b) => a.name.localeCompare(b.name));
+        setCategories(sortedCategories);
+      })
       .catch((error) => console.error("Error fetching categories", error));
   }, []);
 
