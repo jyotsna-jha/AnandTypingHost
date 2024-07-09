@@ -130,14 +130,13 @@ const HindiTypingSpace = ({
     "f.k": "णि",
     "f.A": "णि",
 
-    fF: "थि् ",
+    fF: "थि्",
     fFk: "थि",
     fFA: "थि",
 
     fH: "भि् ",
     fHk: "भि",
     fHA: "भि",
-
     ";": "य",
 
     fD: "कि्",
@@ -154,7 +153,7 @@ const HindiTypingSpace = ({
     fO: "वि्",
     fP: "चि्",
     fX: "गि्",
-    fC: " बि्",
+    fC: "बि्",
     "\u003D": "=",
     "\u0060": "`",
     "\u0084": '"',
@@ -377,6 +376,7 @@ const HindiTypingSpace = ({
               newInput = newInput.slice(0, -1) + "ऑ";
             }
 
+           
             else if (char === "W" && newInput[newInput.length - 1] === "ए") {
               newInput = newInput.slice(0, -1) + "ऍ";
             }
@@ -525,7 +525,12 @@ const HindiTypingSpace = ({
             ) {
               newInput = newInput.slice(0, -characterMapping["f'"].length);
               newInput += characterMapping[`f'${char}`] || char;
-            } else if (
+            } 
+
+
+            
+
+            else if (
               (char === "A" || char === "k") &&
               newInput.endsWith(characterMapping["f["])
             ) {
