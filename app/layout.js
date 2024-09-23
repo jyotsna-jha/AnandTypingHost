@@ -1,5 +1,5 @@
 import "./globals.css";
-
+import Adsense from "@/components/Adsense";
 export const metadata = {
   title: "Anand Typing",
   description:
@@ -14,13 +14,11 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        {process.env.NODE_ENV==="production" &&(
-           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5827686928220119"
-           crossorigin="anonymous"></script>
-        )}
-       
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Adsense pId="ca-pub-5827686928220119" />
+      </body>
     </html>
   );
 }

@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 import lottie from "lottie-web";
 import Link from "next/link";
@@ -7,19 +8,19 @@ const Herosection = ({ title, subtitle }) => {
   const lottieContainerRef = useRef(null);
 
   useEffect(() => {
-    const animation = lottie.loadAnimation({
-      container: lottieContainerRef.current,
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      path: "/assets/typing.json",
-    });
+    if (typeof document !== 'undefined') {
+      const animation = lottie.loadAnimation({
+        container: lottieContainerRef.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "/assets/typing.json", // Path to your animation JSON
+      });
 
-    return () => {
-      animation.destroy();
-    };
+      // Clean up animation on component unmount
+      return () => animation.destroy();
+    }
   }, []);
-
   return (
     <main className=" bg-gradient-to-b from-white to-red-300 via-gray-100 font-poppins ">
       <div className="container mx-auto px-4 py-8">
