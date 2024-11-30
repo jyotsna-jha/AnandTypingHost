@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import TestSetupForm from "@/components/TypingTest/TestSetup";
 import EnglishTypingSpace from "@/components/TypingTest/EnglishTypingSpace";
 import TestResults from "@/components/TypingTest/TestResults";
+// import BannerAd from "@/components/BannerAd";
 
 export default function TypingTest() {
   const [texts, setTexts] = useState({});
@@ -109,6 +110,7 @@ export default function TypingTest() {
 
   return (
     <>
+      {/* <BannerAd /> */}
       {timeOver ? (
         <TestResults {...stats} retakeTest={retakeTest} />
       ) : (

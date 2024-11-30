@@ -1,33 +1,28 @@
 export const PRODUCTS = [
-    { name: "Typing Practice", link: "#" },
-    { name: "Typing Tests", link: "#" },
-    { name: "Typing Games", link: "#" },
-    {name:"Typing Tutorials", link: '#'},
-    {name:"Speed Improvement Tools", link: '#'},
+    { name: "Mangal Typing Test", link: "/mangaltypingtest" },
+    { name: "Hindi Typing Test", link: "/hinditypingtest" },
+    { name: "English Typing Test", link: "/englishtypingtest" },
+    {name:"Translator", link: '/translations'},
+    {name:"MCQ Tests", link: '/mcqtest'},
 
 
   ];
-  export const RESOURCES = [
-    { name: "Typing Tips and Techniques", link: "#" },
-    { name: "Typing Speed Challenge", link: "#" },
-    { name: "Typing Certifications", link: "#" },
-    { name: "Typing Blogs", link: "#" },
-    { name: "Typing Practice Sheets", link: "#" },
-  ];
+
   export const COMPANY = [
-    { name: "About Us", link: "#" },
-    { name: "Contact Us", link: "#" },
-    { name: "Testimonials", link: "#" },
-    { name: "Careers", link: "#" },
-    { name: "FAQs", link: "#" },
+    { name: "About Us", link: "/about" },
+    { name: "Contact Us", link: "/contact" },
+    { name: "Testimonials", link: "/about#testimonials" },
+    { name: "FAQs", link: "/#faq" },
   ];
   export const SUPPORT = [
-    { name: "Documentation", link: "#" },
-    { name: "Tutorials & guides", link: "#" },
-    { name: "Blogs", link: "#" },
-    { name: "Open-source", link: "#" },
+    { name: "Privacy Policy", link: "/privacypolicy" },
+    { name: "GRDP Compliance", link: "/grdp" },
+
   ];
-  
+    export const CONTACT = [
+    { name: "Address: Raddha vallabh mandir ke samne, kila road, Hanuman Bajariya, Housing Colony, Bhind, Madhya Pradesh 477001, India", link: "#" },
+    { name: "Phone: +91 98262 19948", link: "#" },
+  ];
   export const Icons = [
     { name: "logo-facebook", link: "#" },
     { name: "logo-twitter", link: "#" },

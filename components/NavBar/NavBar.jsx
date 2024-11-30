@@ -40,6 +40,9 @@ function Navbar() {
           <a href="/" className="hover:text-[#e74c3c] py-4">
             Home
           </a>
+          <a href="/about" className="hover:text-[#e74c3c] py-4">
+            About
+          </a>
           <div
             className="relative inline-block z-50 "
             onMouseEnter={() => setActiveDropdown("typing")}
@@ -88,6 +91,9 @@ function Navbar() {
           <a href="/downloads" className="hover:text-[#e74c3c] py-4">
             Downloads
           </a>
+          <a href="/contact" className="hover:text-[#e74c3c] py-4">
+            Contact
+          </a>
         </div>
         <div className="md:hidden">
           <button
@@ -100,8 +106,11 @@ function Navbar() {
       </div>
       {isOpen && (
         <div className="md:hidden w-full absolute left-0 top-[112px] bg-gray-900 text-white py-4">
-          <a href="#" className="block py-2 px-4">
+          <a href="/" className="block py-2 px-4">
             Home
+          </a>
+          <a href="/about" className="block py-2 px-4">
+            About
           </a>
           <div className="relative group">
             <button
@@ -112,7 +121,7 @@ function Navbar() {
             >
               Typing{" "}
               <span className="text-[10px] ml-2">
-                {activeDropdown == "typing" ? "▲" : "▼"}
+                {activeDropdown === "typing" ? "▲" : "▼"}
               </span>
             </button>
             {activeDropdown === "typing" && (
@@ -176,6 +185,9 @@ function Navbar() {
           </a>
           <a href="/downloads" className="block py-2 px-4">
             Downloads
+          </a>
+          <a href="/contact" className="block py-2 px-4">
+            Contact
           </a>
         </div>
       )}

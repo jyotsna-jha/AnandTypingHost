@@ -1,5 +1,6 @@
 import "./globals.css";
 import Adsense from "@/components/Adsense";
+import Script from "next/script";
 export const metadata = {
   title: "Anand Typing",
   description:
@@ -14,6 +15,19 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-0K41PR2K64"></Script>
+        <Script id="google-analytics">
+          {
+            `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-0K41PR2K64');
+            `
+          }
+
+        </Script>
       </head>
       <body>
         {children}
