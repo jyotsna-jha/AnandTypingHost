@@ -1,16 +1,19 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Question from "./Question"; // Ensure this component is correctly implemented
-import Result from "./Result"; // This is your provided Result component
 
-const Quiz = ({ selectedCategory, userName }) => {
+import React, { useState, useEffect } from "react";
+import Question from "./Question"; // Ensure this component is correctly implemented
+import Result from "./Result"; // Assuming you have this component for results
+
+const Quiz = ({ selectedCategory, selectedCategoryName, userName }) => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState(0);
   const [allquestions, setAllquestions] = useState([]);
-  
+
   useEffect(() => {
+    console.log("Received category name in Quiz: ", selectedCategoryName); // Debugging log
+
     const fetchQuestions = async () => {
       if (selectedCategory) {
         try {
@@ -26,7 +29,7 @@ const Quiz = ({ selectedCategory, userName }) => {
       }
     };
 
-    fetchQuestions();
+    fetchQuestions(); // Fetch questions based on selectedCategory
   }, [selectedCategory]);
 
   const onAnswerSelected = (questionId, optionIndex) => {
@@ -76,6 +79,9 @@ const Quiz = ({ selectedCategory, userName }) => {
       <div className="text-center mb-5">
         <h1 className="text-2xl font-semibold text-gray-700">Quiz Time</h1>
         <p className="text-gray-500">Good luck, {userName}!</p>
+        <p className="text-indigo-600 font-medium mt-3">
+          Category: {selectedCategoryName || "No category selected"}
+        </p>
       </div>
 
       <div className="bg-white shadow-md rounded p-6 mb-4">

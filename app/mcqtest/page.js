@@ -6,7 +6,8 @@ import Quiz from "@/components/McqTest/Quiz";
 const TestPage = () => {
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(""); // Store category ID
+  const [selectedCategoryName, setSelectedCategoryName] = useState(""); // Store category name
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [touched, setTouched] = useState({ name: false, category: false });
 
@@ -14,7 +15,6 @@ const TestPage = () => {
     fetch("https://api.anandtyping.com/api/categories")
       .then((response) => response.json())
       .then((data) => {
-        // Sort categories alphabetically by name
         const sortedCategories = data.sort((a, b) => a.name.localeCompare(b.name));
         setCategories(sortedCategories);
       })
@@ -24,15 +24,34 @@ const TestPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setTouched({ name: true, category: true });
+
     if (name.trim() !== "" && selectedCategory !== "") {
+      // Find the selected category name based on the category ID
+      const selectedCategoryObj = categories.find(
+        (category) => category.id === parseInt(selectedCategory)
+      );
+
+      if (selectedCategoryObj) {
+        setSelectedCategoryName(selectedCategoryObj.name);
+      }
+
+      console.log("Selected Category Name: ", selectedCategoryObj?.name); // Debugging log
+
       setIsSubmitted(true);
+    } else {
+      // Handle case where category is not selected
+      console.log("Please select a valid category.");
     }
   };
 
   return (
     <div className="front-page min-h-screen flex justify-center items-center bg-gray-100">
       {isSubmitted ? (
-        <Quiz selectedCategory={selectedCategory} userName={name} />
+        <Quiz
+          selectedCategory={selectedCategory}
+          selectedCategoryName={selectedCategoryName} // Passing the category name
+          userName={name}
+        />
       ) : (
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full mx-4">
           <h1 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
