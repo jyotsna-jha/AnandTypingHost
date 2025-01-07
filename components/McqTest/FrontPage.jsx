@@ -10,17 +10,12 @@ const FrontPage = () => {
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching categories", error));
-    console.log(categories);
-    // }
   }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      console.error(" navigating to quiz");
-    } catch (error) {
-      console.error("Error navigating to quiz", error);
-    }
+    console.error("Navigating to quiz");
+    // Navigate to Quiz with selectedCategory and name
   };
 
   return (
@@ -38,7 +33,7 @@ const FrontPage = () => {
         >
           <option value="">Select a category</option>
           {categories.map((category) => (
-            <option key={category.id} value={category.id}>
+            <option key={category.id} value={category.name}>
               {category.name}
             </option>
           ))}
